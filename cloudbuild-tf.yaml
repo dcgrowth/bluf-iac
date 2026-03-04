@@ -9,6 +9,10 @@ steps:
         chmod +x cloud-sql-proxy
         ./cloud-sql-proxy --address 0.0.0.0 --port 5432 bluf-489122:northamerica-northeast1:bluf2020 & 
         sleep 5
+        apt-get update && apt-get install -y wget unzip
+        wget https://releases.hashicorp.com/terraform/1.6.0/terraform_1.6.0_linux_amd64.zip
+        unzip terraform_1.6.0_linux_amd64.zip
+        mv terraform /usr/local/bin/
         cd terraform
         terraform init
         terraform apply -auto-approve
