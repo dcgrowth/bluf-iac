@@ -1,23 +1,16 @@
 steps:
+  - name: "hashicorp/terraform:1.7"
+    script: |
+      terraform init
+      terraform apply -auto-approve
+    env:
+      - "TF_VAR_db_password=$_DB_PASSWORD"
+
+# The Proxy runs alongside Terraform to bridge the gap
+services:
   - name: "gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.8.1"
     id: "sql-proxy"
     args:
       - "--address=0.0.0.0"
       - "--port=5432"
       - "bluf-489122:northamerica-northeast1:bluf2020"
-    waitFor: ["-"]
-
-  - name: "hashicorp/terraform:latest"
-    args: ["init"]
-    dir: "terraform"
-
-  - name: "hashicorp/terraform:latest"
-    args: ["plan", "-out=tfplan"]
-    dir: "terraform"
-
-  - name: "hashicorp/terraform:latest"
-    args: ["apply", "-auto-approve", "tfplan"]
-    dir: "terraform"
-
-options:
-  logging: CLOUD_LOGGING_ONLY

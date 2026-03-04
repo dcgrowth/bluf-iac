@@ -25,8 +25,8 @@ provider "postgresql" {
   host            = var.db_host
   port            = 5432
   database        = "bluf_dlm"
-  username        = "lendly"
-  password        = "Bluff2020!!"
-  sslmode         = "require"
+  username        = var.db_user
+  password        = var.db_password
+  sslmode         = "disable"
   connect_timeout = 15
 }
