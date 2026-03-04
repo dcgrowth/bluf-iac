@@ -10,7 +10,18 @@ variable "region" {
   description = "Region to deploy java springboot cloud-dev demo resources"
 }
 
+variable "db_host" {
+  type        = string
+  description = "Database host IP address"
+}
 
+variable "db_user" {
+  type        = string
+  description = "Database user for the Spring Boot application"
+}
 
-
-
+variable "db_password" {
+  type        = string
+  sensitive   = true
+  description = "Database password for the Spring Boot application"
+}

@@ -8,3 +8,16 @@ variable "region" {
   description = "Region to deploy resources"
 }
 
+variable "db_user" {
+  type = string
+}
+
+variable "db_password" {
+  type      = string
+  sensitive = true
+}
+
+variable "db_host" {
+  type        = string
+  description = "Database host IP address"
+}

@@ -1,4 +1,10 @@
 steps:
+  - name: 'gcr.io/cloud-sql-proxy/cloud-sql-proxy:latest'
+    args:
+      - '--port=5432'
+      - 'bluf-489122:northamerica-northeast1:bluf2020'
+    waitFor: ['-']
+
   - name: 'hashicorp/terraform:latest'
     args: ['init']
     dir: 'terraform'
