@@ -1,8 +1,10 @@
 steps:
-  - name: "gcr.io/cloudsql-docker/gce-proxy:latest"
+  - name: "gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.8.1"
+    id: "sql-proxy"
     args:
-      - "/cloud_sql_proxy"
-      - "-instances=bluf-489122:northamerica-northeast1:bluf2020=tcp:5432"
+      - "--address=0.0.0.0"
+      - "--port=5432"
+      - "bluf-489122:northamerica-northeast1:bluf2020"
     waitFor: ["-"]
 
   - name: "hashicorp/terraform:latest"
