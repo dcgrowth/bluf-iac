@@ -1,25 +1,17 @@
 steps:
-  # 1. Download and start the Proxy as a background process
   - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
-    id: "connect-to-db"
+    id: "terraform-with-proxy"
     entrypoint: "bash"
     args:
       - "-c"
       - |
-        # Download the Auth Proxy
         curl -o cloud-sql-proxy https://storage.googleapis.com/cloud-sql-connectors/cloud-sql-proxy/v2.8.1/cloud-sql-proxy.linux.amd64
         chmod +x cloud-sql-proxy
-
-        # Start the proxy in the background (&)
-        # It binds to 127.0.0.1 (localhost) so Terraform can find it
         ./cloud-sql-proxy --address 0.0.0.0 --port 5432 bluf-489122:northamerica-northeast1:bluf2020 & 
-
-        # Give it a few seconds to establish the tunnel
         sleep 5
-
-        # Run Terraform from WITHIN this same step so it shares the localhost network
-        # This is the "Secret Sauce" - keeping them in one container step
-        export TF_VAR_db_password=$_DB_PASSWORD
-
+        cd terraform
         terraform init
         terraform apply -auto-approve
+
+options:
+  logging: CLOUD_LOGGING_ONLY
