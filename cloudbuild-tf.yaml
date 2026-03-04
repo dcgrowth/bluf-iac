@@ -1,6 +1,7 @@
 steps:
-  - name: "gcr.io/cloud-builders/cloud-sql-proxy"
+  - name: "gcr.io/cloudsql-docker/gce-proxy:latest"
     args:
+      - "/cloud_sql_proxy"
       - "-instances=bluf-489122:northamerica-northeast1:bluf2020=tcp:5432"
     waitFor: ["-"]
 
