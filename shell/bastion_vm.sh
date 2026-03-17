@@ -24,7 +24,7 @@ echo "Step 2: Creating Bastion VM in $SUBNET..."
 gcloud compute instances create $VM_NAME \
     --project=$PROJECT_ID \
     --zone=$ZONE \
-    --machine-type=e2-micro \
+    --machine-type=e2-small \
     --subnet=$SUBNET \
     --no-address \
     --scopes=https://www.googleapis.com/auth/cloud-platform \
